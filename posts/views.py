@@ -11,7 +11,7 @@ class Posts():
 
 
 def home(request):
-    un_formated_posts = Post.objects.order_by('-date')[:5]
+    un_formated_posts = Post.objects.order_by('-date')
     posts = []
 
     for el in un_formated_posts:

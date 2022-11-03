@@ -8,7 +8,11 @@
 	<title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
-	<a href="{% url "profile" %}">Profile</a>
+	<div>
+		<a href="{% url "profile" %}">Profile</a>
+		<a href="{% url "home" %}">Home</a>
+	</div>
+
 	{% block content %}
 		
 	{% endblock content %}

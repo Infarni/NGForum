@@ -7,6 +7,10 @@
 	<title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
+	<div>
+		<a href="{% url "profile" %}">Profile</a>
+		<a href="{% url "home" %}">Home</a>
+	</div>
 	{% block content %}
 		
 	{% endblock content %}
