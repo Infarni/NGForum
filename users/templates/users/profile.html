@@ -12,6 +12,7 @@
 			<b>Avatar: </b>{{ form.avatar }}
 			<button type="submit">Upload</button>
 		</form>
+		<a href="{% url "signout" %}">SignOut</a>
 	{% else %}
 		<a href="{% url 'signup' %}">SignUp</a>
 		<a href="{% url 'signin' %}">SignIn</a>

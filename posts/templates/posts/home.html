@@ -3,11 +3,13 @@
 
 {% block content %}
 	{% for el in posts%}
-		<div>--------------------------------------------</div>
-		{{ el.post.author.username }} || {{ el.post.title}}
-		<br>{{ el.post.text }}
-		{% for img in el.images %}
-			<img class="img" src="{{ img.image.url }}">
-		{% endfor %}
+		<div><img class="avatar" src="{{ el.post.author.avatar.url }}"><span>{{ el.post.author.username }}</span></div>
+		<div><a href="{% url "post_view" el.post.pk %}">{{ el.post.title }}</a></div>
+		<div class="images">
+			{% for img in el.images %}
+				<img class="img" src="{{ img.image.url }}">
+			{% endfor %}
+		</div>
+		<div class="text">{{ el.post.text }}</div>
 	{% endfor %}
 {% endblock content %}

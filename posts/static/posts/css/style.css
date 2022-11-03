@@ -1,7 +1,14 @@
 img {
-	width: 500px;
+	width: 300px;
 }
 
 .avatar {
 	width: 50px;
 }
+
+body {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: minmax(50px, 100px);
+}
+

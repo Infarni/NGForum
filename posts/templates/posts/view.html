@@ -1,0 +1,23 @@
+{% extends "posts/template.html" %}
+{% block title %}{{ post.title }}{% endblock title %}
+
+{% block content %}
+	<div><img class="avatar" src="{{ post.author.avatar.url }}"><span>{{ post.author.username }}</span><div>
+		<div><a href="{% url "post_view" post.pk %}"></a>{{ post.title }}</div>
+		<div class="images">
+			{% for img in images %}
+				<img class="img" src="{{ img.image.url }}">
+			{% endfor %}
+		</div>
+	<div class="text">{{ post.text }}</div>
+	----------------------------------------------------------------------------------------------
+	<form method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit">Comment</button>
+	</form>
+	{% for comment in comments %}
+		<div><img class="avatar" src="{{ comment.author.avatar.url }}"><span>{{ comment.author.username }}</span></div>
+		<div class="text">{{ comment.text }}</div>
+	{% endfor %}
+{% endblock content %}

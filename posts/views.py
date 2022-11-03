@@ -117,3 +117,29 @@ def comments(request, pk):
         data['form'] = form
         data['comments'] = comments
         return render(request, 'posts/comments.html', data)
+
+
+def post_view(request, pk):
+    data = {}
+    post = Post.objects.get(pk=pk)
+    images = PostImage.objects.filter(post=post)
+    comments = Comment.objects.filter(post=post)
+    form = CommentForm()
+    data['post'] = post
+    data['images'] = images
+    data['comments'] = comments
+    data['form'] = form
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.post = post
+            instance.author = request.user
+            instance.save()
+            data['post'] = post
+            data['images'] = images
+            data['comments'] = comments
+            return render(request, 'posts/view.html', data)
+        else:
+            return render(request, 'posts/view.html', data)
+    return render(request, 'posts/view.html', data)
