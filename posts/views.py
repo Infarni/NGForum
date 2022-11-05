@@ -183,12 +183,3 @@ class PostAPIView(APIView):
             )
 
         return Response({'posts': posts})
-
-    def post(self, request):
-        post_new = Women.objects.create(
-            title=request.data['title'],
-            content=request.data['content'],
-            cat_id=request.data['cat_id']
-        )
-
-        return Response({'post': model_to_dict(post_new)})
