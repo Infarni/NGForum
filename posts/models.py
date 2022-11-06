@@ -36,6 +36,13 @@ class PostImage(models.Model):
     )
     image = models.ImageField(upload_to=user_directory_path_post_images)
 
+    def __str__(self):
+        return self.post
+
+    class Meta:
+        verbose_name = 'Зображеня'
+        verbose_name_plural = 'Зображеня'
+
 
 class Comment(models.Model):
     post = models.ForeignKey(
