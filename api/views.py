@@ -74,3 +74,32 @@ class PostAPIView(APIView):
         }
 
         return Response({'post': post})
+
+
+class UsersAPIView(APIView):
+    def get(self, request):
+        users_unformated = CustomUser.objects.all()
+        users = []
+
+        for user in users_unformated:
+            users.append(
+                {
+                    'username': user.username,
+                    'email': user.email,
+                    'avatar': user.avatar.url
+                }
+            )
+
+        return Response({'users': users})
+
+
+class UserAPIView(APIView):
+    def get(self, request, pk):
+        user_unformated = CustomUser.objects.get(pk=pk)
+        user = {
+            'username': user_unformated.username,
+            'email': user_unformated.email,
+            'avatar': user_unformated.avatar.url
+        }
+
+        return Response({'user': user})
