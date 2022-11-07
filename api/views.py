@@ -7,10 +7,11 @@ from posts.models import *
 
 
 class PostsAPIView(APIView):
-    def get(self, request):
+    def get(self, request, start, end):
+        posts_unformated = Post.objects.order_by('-date')[start:end]
         posts = []
 
-        for post in Post.objects.order_by('-date')[:10]:
+        for post in posts_unformated:
             images_unformated = PostImage.objects.filter(post=post)
             images = []
             comments_unformated = Comment.objects.filter(post=post)
