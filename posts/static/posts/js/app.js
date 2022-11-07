@@ -47,5 +47,5 @@ async function startHomePage (){
 }
 
 
-startHomePage ()
+//startHomePage ()
 
