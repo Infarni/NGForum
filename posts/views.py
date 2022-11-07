@@ -30,6 +30,9 @@ def index(request):
         'posts': posts
     }
 
+    form = PostImageForm()
+
+    data['form'] = form
     return render(request, 'posts/index.html', data)
 
 
