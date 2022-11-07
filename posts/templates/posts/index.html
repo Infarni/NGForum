@@ -9,26 +9,6 @@
 	<title>Posts</title>
 </head>
 <body>
-
-	<form method="post">
-		{% csrf_token %}
-		<input type="text" name="title">
-		<textarea name="text"></textarea>
-		<button type="submit", formaction="{% url "api_create_post" %}">Create</button>
-	</form>
-
-	<form method="post" enctype="multipart/form-data">
-		{% csrf_token %}
-		<input type="file" name="image" accept="image/*">
-		<button type="submit" formaction="{% url "api_upload_image" 27 %}">Upload</button>
-	</form>
-
-	<form method="post">
-		{% csrf_token %}
-		<input type="text" name="text">
-		<button type="submit" formaction="{% url "api_comment" 27 %}">Comment</button>
-	</form>
-	
 	<div class="container">
 		
 		<div class="forum">

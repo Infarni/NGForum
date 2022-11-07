@@ -14,9 +14,13 @@ class ToHTML {
 
     paintPost (post) {
         return `<li>
+        username : <span>${post.author_username}</span>
         <small> id :${post.id}</small>
-        <small> текст : ${post.title}</small> 
+        <small> назва : ${post.title}</small>
+        <div> текст : ${post.text} </div>
         </li>
+        <br>
+        <br>
         `
     }
 
