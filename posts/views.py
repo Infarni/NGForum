@@ -1,6 +1,4 @@
 from django.shortcuts import render, redirect
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from .models import *
 from .forms import *
 
@@ -145,41 +143,3 @@ def post_view(request, pk):
         else:
             return render(request, 'posts/view.html', data)
     return render(request, 'posts/view.html', data)
-
-
-class PostAPIView(APIView):
-    def get(self, request):
-        posts = []
-
-        for post in Post.objects.order_by('-date')[:10]:
-            images_unformated = PostImage.objects.filter(post=post)
-            images = []
-            comments_unformated = Comment.objects.filter(post=post)
-            comments = []
-
-            for img in images_unformated:
-                images.append({'image': img.image.url})
-
-            for comment in comments_unformated:
-                comments.append(
-                    {
-                        'author_avatar': comment.author.avatar.url,
-                        'author_username': comment.author.username,
-                        'author_id': comment.author.id,
-                        'text': comment.text,
-                        'date': comment.date
-                    }
-                )
-
-            posts.append(
-                {
-                    'author_avatar': post.author.avatar.url,
-                    'author_username': post.author.username,
-                    'title': post.title,
-                    'images': images,
-                    'text': post.text,
-                    'comments': comments,
-                }
-            )
-
-        return Response({'posts': posts})

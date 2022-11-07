@@ -7,7 +7,7 @@ from os.path import isfile
 from django.conf import settings
 
 
-def profile(request):
+def index(request):
     if request.user.is_authenticated:
         avatar = request.user.avatar
         if request.method == 'POST':
@@ -17,16 +17,16 @@ def profile(request):
                 if isfile(f'{settings.MEDIA_ROOT}/users_avatar/user_{request.user.username}/{request.user.avatar}'):
                     remove(f'{settings.MEDIA_ROOT}/users_avatar/user_{request.user.username}/{request.user.avatar}')
                 form.save()
-                return redirect('profile')
+                return redirect('index')
             else:
                 for msg in form.error_messages:
                     print(form.error_messages[msg])
         else:
             form = CustomUserAvatar()
-            return render(request, 'users/profile.html', {
+            return render(request, 'users/index.html', {
                 'form': form, 'avatar': avatar})
     else:
-        return render(request, 'users/profile.html')
+        return render(request, 'users/index.html')
 
 
 def signup(request):
@@ -34,7 +34,7 @@ def signup(request):
         form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             login(request, form.save())
-            return redirect("profile")
+            return redirect("index")
 
         else:
             for msg in form.error_messages:
@@ -62,7 +62,7 @@ def signin(request):
 
         if user is not None:
             login(request, user)
-            return redirect('profile')
+            return redirect('index')
 
     form = AuthenticationForm()
     return render(request, 'users/signin.html', {'form': form})
@@ -70,5 +70,4 @@ def signin(request):
 
 def signout(request):
     logout(request)
-    return redirect('profile')
-
+    return redirect('index')

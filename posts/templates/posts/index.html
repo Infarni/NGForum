@@ -5,16 +5,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="{% static "posts/css/style.css" %}">
-	<title>{% block title %}{% endblock title %}</title>
+	<script type="text/javascript" src="{% static "posts/js/script.js" %}"></script>
+	<title>Posts</title>
 </head>
 <body>
-	<div>
-		<a href="{% url "index" %}">Profile</a>
-		<a href="{% url "home" %}">Home</a>
-	</div>
 
-	{% block content %}
-		
-	{% endblock content %}
 </body>
 </html>
