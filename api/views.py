@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from users.models import *
@@ -44,7 +45,7 @@ class PostsAPIView(APIView):
 
 class PostAPIView(APIView):
     def get(self, request, pk):
-        post_unformated = Post.objects.get(pk=pk)
+        post_unformated = get_object_or_404(Post, pk=pk)
         images_unformated = PostImage.objects.filter(post=post_unformated)
         images = []
         comments_unformated = Comment.objects.filter(post=post_unformated)
@@ -95,7 +96,7 @@ class UsersAPIView(APIView):
 
 class UserAPIView(APIView):
     def get(self, request, pk):
-        user_unformated = CustomUser.objects.get(pk=pk)
+        user_unformated = get_object_or_404(CustomUser, pk=pk)
         user = {
             'username': user_unformated.username,
             'email': user_unformated.email,
