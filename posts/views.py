@@ -10,7 +10,7 @@ class Posts():
         self.images = images
 
 
-def home(request):
+def index(request):
     un_formated_posts = Post.objects.order_by('-date')
     posts = []
 
@@ -30,7 +30,7 @@ def home(request):
         'posts': posts
     }
 
-    return render(request, 'posts/home.html', data)
+    return render(request, 'posts/index.html', data)
 
 
 def create_post(request):

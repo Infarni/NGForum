@@ -7,7 +7,7 @@ class Post(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         default=None,
-        editable=False,
+        editable=True
     )
     title = models.CharField('Назва', max_length=256)
     text = models.TextField('Текст', blank=True)
@@ -55,7 +55,7 @@ class Comment(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         default=None,
-        editable=False,
+        editable=True,
     )
     text = models.TextField('Текст', max_length=512)
     date = models.DateTimeField('Дата публікації', auto_now_add=True)
