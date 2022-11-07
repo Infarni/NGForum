@@ -14,8 +14,12 @@ def index(request):
             form = CustomUserAvatar(
                 request.POST, request.FILES, instance=request.user)
             if form.is_valid():
-                if isfile(f'{settings.MEDIA_ROOT}/users_avatar/user_{request.user.username}/{request.user.avatar}'):
-                    remove(f'{settings.MEDIA_ROOT}/users_avatar/user_{request.user.username}/{request.user.avatar}')
+                username = request.user.username
+                avatar = request.user.avatar
+                users_folder = f'{settings.MEDIA_ROOT}/users_avatar/user_'
+                file = f'{users_folder}{username}/{avatar}'
+                if isfile(file):
+                    remove(file)
                 form.save()
                 return redirect('index')
             else:

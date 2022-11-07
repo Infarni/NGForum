@@ -1,9 +1,13 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from posts.forms import *
 from users.models import *
 from posts.models import *
+
+
+def posts_no_filters(request):
+    return redirect('api_posts', start=0, end=len(Post.objects.all()))
 
 
 class PostsAPIView(APIView):

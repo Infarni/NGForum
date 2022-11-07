@@ -1,5 +1,4 @@
-from django import forms
-from django.forms import ModelForm, TextInput, Textarea, ImageField
+from django.forms import ModelForm, TextInput, Textarea
 from .models import *
 
 

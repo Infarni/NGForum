@@ -2,9 +2,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('posts/', views.PostsAPIView.as_view(), name='api_posts'),
+    path('posts/', views.posts_no_filters, name='api_posts_no_filters'),
     path(
-        'posts/filter=<int:start>-<int:end>/',
+        'posts&filter=<int:start>-<int:end>/',
         views.PostsAPIView.as_view(),
         name='api_posts'
     ),
