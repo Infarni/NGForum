@@ -12,3 +12,11 @@ body {
 	grid-template-rows: minmax(50px, 100px);
 }
 
+h2 {
+    text-align: center;
+}
+
+li {
+    list-style-type: none;
+    
+  }

@@ -9,6 +9,7 @@
 	<title>Posts</title>
 </head>
 <body>
+
 	<form method="post">
 		{% csrf_token %}
 		<input type="text" name="title">
@@ -27,5 +28,17 @@
 		<input type="text" name="text">
 		<button type="submit" formaction="{% url "api_comment" 27 %}">Comment</button>
 	</form>
+	
+	<div class="container">
+		
+		<div class="forum">
+			<h2>Тут будуть пости</h2>
+		
+		<input type="text" class="filter" placeholder="Пошук...">
+		<ul class="posts"></ul>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="{% static "posts/js/app.js" %}"></script>
 </body>
 </html>
