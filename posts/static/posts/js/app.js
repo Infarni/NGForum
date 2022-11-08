@@ -14,6 +14,7 @@ class ToHTML {
 
     paintPost (post) {
         return `<li>
+        <img src="${post.author_avatar}" style="height: 50px; width: 50px">
         username : <span>${post.author_username}</span>
         <small> id :${post.id}</small>
         <small> назва : ${post.title}</small>
