@@ -39,14 +39,17 @@ function renderPosts (posts) {
 }
 
 
-async function startHomePage (){ 
-    const respone = await fetch ('http://127.0.0.1:8000/api/posts')
+async function startHomePage (){
+
+    start += 3
+    const respone = await fetch (`http://127.0.0.1:8000/api/posts&filter=0-${start + 3}`)
     const data = await respone.json()
 
     postService = new PostServive(data)
     renderPosts(postService.posts)
 }
 
+var start = -3
 
 //startHomePage ()
 
