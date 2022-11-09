@@ -38,6 +38,13 @@ function renderPosts (posts) {
 
 }
 
+async function clearPosts () {
+
+    postContainer.innerHTML = toHtml.paintPosts()
+    end = 0
+
+}
+
 
 async function startHomePage (){
 
@@ -48,6 +55,7 @@ async function startHomePage (){
     postService = new PostServive(data)
     renderPosts(postService.posts)
 }
+
 
 var end = 0
 
