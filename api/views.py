@@ -153,11 +153,7 @@ class CommentAPIView(APIView):
                     }
                 )
 
-            return Response(
-                {
-                    'comments': comments
-                }
-            )
+            return Response(comments)
 
 
 class UsersAPIView(APIView):
@@ -175,7 +171,7 @@ class UsersAPIView(APIView):
                 }
             )
 
-        return Response({'users': users})
+        return Response(users)
 
 
 class UserAPIView(APIView):
@@ -188,4 +184,4 @@ class UserAPIView(APIView):
             'avatar': user_unformated.avatar.url
         }
 
-        return Response({'user': user})
+        return Response(user)
