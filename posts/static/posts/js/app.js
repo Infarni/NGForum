@@ -49,7 +49,7 @@ async function clearPosts () {
 async function startHomePage (){
 
     end += 3
-    const respone = await fetch (`http://127.0.0.1:8000/api/posts&filter=0-${end}`)
+    const respone = await fetch (`http://127.0.0.1:8000/api/posts&filter(0-${end})`)
     const data = await respone.json()
 
     postService = new PostServive(data)
