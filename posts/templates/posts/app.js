@@ -2,7 +2,6 @@
 const postContainer = document.querySelector('.posts')
 let postService
 
-
 class PostServive {
 
 constructor( posts = []){ 
@@ -15,7 +14,7 @@ class ToHTML {
     paintPost (post) {
         return `<li>
         <small> id :${post.id}</small>
-        <small> текст : ${post.title}</small> 
+        <small>${post.title}</small> 
         </li>
         `
     }
@@ -36,13 +35,14 @@ function renderPosts (posts) {
 
 async function startHomePage (){ 
 
-const respone = await fetch ('http://127.0.0.1:8000/api/')
+const respone = await fetch ('http://127.0.0.1:8000/api/posts')
 const data = await respone.json()
 
 postService = new PostServive(data)
-renderPosts(postService.posts)
-}
 
+renderPosts(postService.posts)
+   
+}
 
 startHomePage ()
 
