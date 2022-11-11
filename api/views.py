@@ -47,7 +47,7 @@ class PostsAPIView(APIView):
                 }
             )
 
-        return Response({'posts': posts})
+        return Response(posts)
 
 
 class PostAPIView(APIView):
@@ -82,7 +82,7 @@ class PostAPIView(APIView):
             'comments': comments,
         }
 
-        return Response({'post': post})
+        return Response(post)
 
 
 class CreatePostAPIView(APIView):
@@ -95,15 +95,14 @@ class CreatePostAPIView(APIView):
             instance.save()
 
             return Response(
-                {'post':
-                    {
-                        'author_avatar': instance.author.avatar.url,
-                        'author_username': instance.author.username,
-                        'author_id': instance.author.id,
-                        'title': instance.title,
-                        'text': instance.text,
-                        'date': instance.date
-                    }}
+                {
+                    'author_avatar': instance.author.avatar.url,
+                    'author_username': instance.author.username,
+                    'author_id': instance.author.id,
+                    'title': instance.title,
+                    'text': instance.text,
+                    'date': instance.date
+                }
             )
 
 
@@ -154,11 +153,7 @@ class CommentAPIView(APIView):
                     }
                 )
 
-            return Response(
-                {
-                    'comments': comments
-                }
-            )
+            return Response(comments)
 
 
 class UsersAPIView(APIView):
@@ -176,7 +171,7 @@ class UsersAPIView(APIView):
                 }
             )
 
-        return Response({'users': users})
+        return Response(users)
 
 
 class UserAPIView(APIView):
@@ -189,4 +184,4 @@ class UserAPIView(APIView):
             'avatar': user_unformated.avatar.url
         }
 
-        return Response({'user': user})
+        return Response(user)
