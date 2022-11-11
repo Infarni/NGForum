@@ -1,15 +1,9 @@
 
-const postContainer = document.querySelector('.posts')
 let postService
 
 
-class PostServive {
+const postContainer = document.querySelector('.posts')
 
-constructor( posts = []){ 
-   this.posts = posts
-
-}
-}
 class ToHTML {
 
     paintPost (post) {
@@ -29,8 +23,19 @@ class ToHTML {
         return posts.map(this.paintPost).join('')
     }
 }
+
 const toHtml = new ToHTML()
 
+class PostServive {
+
+    constructor( posts = []){ 
+       this.posts = posts
+    }
+    
+        claerHtml (){
+          return  this.posts = []
+        }
+    }
 
 function renderPosts (posts) {
 
@@ -38,25 +43,14 @@ function renderPosts (posts) {
 
 }
 
-async function clearPosts () {
-
-    postContainer.innerHTML = toHtml.paintPosts()
-    end = 0
-
-<<<<<<< HEAD
-const respone = await fetch ('http://127.0.0.1:8000/api/')
-const data = await respone.json()
-
-postService = new PostServive(data)
-renderPosts(postService.posts)
-=======
->>>>>>> fcd45e747a79a7d147b7165cbe311dc8f1027b46
+ function clearPosts () {
+postService.claerHtml()
 }
 
 
 async function startHomePage (){
 
-    end += 3
+    end += 5
     const respone = await fetch (`http://127.0.0.1:8000/api/posts&filter(0-${end})`)
     const data = await respone.json()
 
@@ -65,7 +59,7 @@ async function startHomePage (){
 }
 
 
-var end = 0
+let end = 0
 
 //startHomePage ()
 
