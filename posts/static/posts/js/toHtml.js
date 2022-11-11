@@ -1,3 +1,10 @@
+function ellipsis (string = ''){
+    if (string.length > 300){
+       return string.substring(0, 300) + '...'
+    }
+    return string
+  }
+
 class ToHTML {
 
     paintPost (post) {
@@ -8,7 +15,7 @@ class ToHTML {
         username : <span>${post.author_username}</span>
         <div><small> id :${post.id}</small>
         назва : ${post.title}</div>
-        <div> текст : ${post.text} </div>
+        <div> текст : ${ellipsis(post.text)} </div>
         </li>
         `
     }
@@ -17,3 +24,4 @@ class ToHTML {
         return posts.map(this.paintPost).join('')
     }
 }
+
