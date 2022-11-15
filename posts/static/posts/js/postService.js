@@ -8,9 +8,16 @@ class PostServive {
       if (!search.trim()) return this.posts
       
       return this.posts
-      .filter(post => 
-         post.title.toLowerCase().
-         includes(search.trim().toLocaleLowerCase())
+      .filter(post => post.text.toLowerCase()
+      .includes(search.trim().toLocaleLowerCase()) || post.title.toLowerCase()
+      .includes(search.trim().toLocaleLowerCase())
+        
     )}
 
+    rederFilter (post){
+      postContainer.innerHTML = toHtml.paintPosts(post)
     }
+
+    }
+
+  

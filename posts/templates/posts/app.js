@@ -44,5 +44,5 @@ renderPosts(postService.posts)
    
 }
 
-startHomePage ()
+//startHomePage ()
 
