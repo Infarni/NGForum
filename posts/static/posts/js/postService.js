@@ -14,10 +14,7 @@ class PostServive {
         
     )}
 
-    rederFilter (post){
-      postContainer.innerHTML = toHtml.paintPosts(post)
-    }
-
+    
     }
 
   

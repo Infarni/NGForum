@@ -2,14 +2,14 @@
 let postService
 const toHtml = new ToHTML() 
 let currentPage = 1
-let rows = 4
+let rows = 5
 
-const postContainer = document.querySelector('.posts')
+const postContainer = document.querySelector('.postcontainer')
 const filterBy = document.querySelector('.filter')
 const buttonClear = document.querySelector('#clear')
 const buttonLoad = document.querySelector('#load')
-const testButton = document.querySelectorAll('.posts')
 
+        
 buttonClear.addEventListener('click', () => {
     
     renderPosts()
@@ -30,30 +30,8 @@ filterBy.addEventListener('input', event => {
 function renderPosts (posts, rows, currentPage) {
 
     postContainer.innerHTML = toHtml.displayList(posts, rows, currentPage)
-    
+    toHtml.showMore()
 }
-
-function displayPaginationBtn(page) {
-   
-    const liEl = document.createElement("li");
-    liEl.classList.add('pagination__item')
-    liEl.innerText = page
-
-    if (currentPage == page) liEl.classList.add('pagination__item--active');
-
-    liEl.addEventListener('click', () => {
-      currentPage = page
-      renderPosts(postService.posts, rows, currentPage)
-
-      let currentItemLi = document.querySelector('li.pagination__item--active');
-      currentItemLi.classList.remove('pagination__item--active');
-
-      liEl.classList.add('pagination__item--active');
-    })
-    return liEl;
-
-    
-  }
 
 async function startHomePage (){
 

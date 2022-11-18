@@ -1,3 +1,5 @@
+
+
 img {
 	width: 300px;
 }
@@ -45,5 +47,17 @@ li {
 	font-weight: 800;
 	color: gold;
   }
+  
+  .posts { 
+	width: 500px;
+	transition: width 0.2s;
+  }
+  
+  
+  .posts.more {
+	width: 400px;
+    
+  }
+
 
   
