@@ -5,25 +5,16 @@ class ToHTML {
         const buttons = document.querySelectorAll('.button-more')
         
         posts.forEach(post => {
-               
-            function renameButton () {
-                buttons.forEach(button => {
-                const postMore = post.classList.contains('more')
-                postMore ? button.innerText = 'Сховати' 
-                    : button.innerText = 'Показати ще'
-                })
-            }
-            
             post.addEventListener('click',(even) => {
                 const postMore = post.classList.contains('more')
                 const button = even.target.classList.contains('button-more')
                     if(button){
                         post.classList.add('more')
-                        renameButton()
+                        even.target.innerText = 'Сховати '
                     }
                     if(button && postMore){
                         post.classList.remove('more')
-                        renameButton()
+                        even.target.innerText = 'Показати ще'
                     }
                 })      
         })
