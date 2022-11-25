@@ -120,7 +120,7 @@ class UserAPIView(APIView):
     def get(self, request, id):
         user_unformated = get_object_or_404(CustomUser, id=id)
         user = {
-            'user': user_unformated.id,
+            'id': user_unformated.id,
             'username': user_unformated.username,
             'email': user_unformated.email,
             'avatar': user_unformated.avatar.url
