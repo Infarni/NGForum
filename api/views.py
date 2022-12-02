@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from posts.forms import *
 from users.models import *
 from posts.models import *
+from math import ceil
 
 
 def posts_no_filters(request):
@@ -46,6 +47,16 @@ class PostsAPIView(APIView):
             )
 
         return Response(posts)
+
+
+class PostsNumberPagesAPIView(APIView):
+    def get(self, request):
+        pages = ceil(len(Post.objects.all()) / 4)
+        return Response(
+            {
+                "Pages": pages
+            }
+        )
 
 
 class PostAPIView(APIView):

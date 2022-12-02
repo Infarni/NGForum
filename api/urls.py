@@ -8,6 +8,11 @@ urlpatterns = [
         views.PostsAPIView.as_view(),
         name='api_posts'
     ),
+    path(
+        'posts&filter(pages)/',
+        views.PostsNumberPagesAPIView.as_view(),
+        name='api_posts_number_pages'
+    ),
     path('posts/<int:id>/', views.PostAPIView.as_view(), name='api_post'),
     path(
         'posts/<int:id>/comment/',
