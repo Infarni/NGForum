@@ -7,11 +7,39 @@ from posts.models import *
 from math import ceil
 
 
-def posts_no_filters(request):
-    return redirect('api_posts', number=1)
-
 def users_no_filters(request):
     return redirect('api_users', number=1)
+
+
+
+class PostsAllAPIView(APIView):
+    def get(self, request):
+        posts_unformated = Post.objects.order_by('-date')
+        posts = []
+
+        for post in posts_unformated:
+            images_unformated = PostImage.objects.filter(post=post)
+            images = []
+            
+            for image in images_unformated:
+                images.append(
+                    {
+                        "id": image.id,
+                        "image": image.image.url
+                    }
+                )
+            posts.append(
+                {
+                    "userId": post.author.id,
+                    "id": post.id,
+                    "title": post.title,
+                    "body": post.text,
+                    "images": images,
+                    "date": post.date
+                }
+            )
+
+        return Response(posts)
 
 
 class PostsAPIView(APIView):
