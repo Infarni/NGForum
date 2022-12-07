@@ -44,12 +44,8 @@ class PostsAllAPIView(APIView):
 
 class PostsAPIView(APIView):
     def get(self, request, number):
-        if number == 1:
-            end = 4 * number
-        else:
-            end = 4 * number - 1
-        start = end - 4
-        posts_unformated = Post.objects.order_by('-date')[start:end]
+        number -= 1
+        posts_unformated = Post.objects.order_by('-date')[number * 4:number * 4 + 4]
         posts = []
 
         for post in posts_unformated:
@@ -79,7 +75,7 @@ class PostsAPIView(APIView):
 
 class PostsNumberPagesAPIView(APIView):
     def get(self, request):
-        pages = ceil(len(Post.objects.all()) / 4)
+        pages = ceil(len(Post.objects.order_by('-date')) / 4)
         return Response(
             {
                 "Pages": pages
