@@ -2,7 +2,13 @@ from django.db import models
 from django.conf import settings
 
 
-class Post(models.Model):
+def user_directory_path_post_images(instance, filename):
+    username = instance.post.author.username
+    pk = instance.post.pk
+    return f'users/{username}/posts/{pk}/images/{filename}'
+
+
+class PostModel(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -11,7 +17,10 @@ class Post(models.Model):
     )
     title = models.CharField('Назва', max_length=256)
     text = models.TextField('Текст', blank=True)
-    date = models.DateTimeField('Дата публікації', auto_now_add=True)
+    published = models.BooleanField('Опубліковано', default=False)
+    deleted = models.BooleanField('Видалено', default=False)
+    date_create = models.DateTimeField('Дата публікації', auto_now_add=True)
+    date_update = models.DateTimeField('Дата змінення', auto_now=True)
 
     def __str__(self):
         return self.title
@@ -21,36 +30,20 @@ class Post(models.Model):
         verbose_name_plural = 'Публікації'
 
 
-def user_directory_path_post_images(instance, filename):
-    username = instance.post.author.username
-    pk = instance.post.pk
-    return f'users/{username}/posts/{pk}/images/{filename}'
-
-
-class PostImage(models.Model):
-    post = models.ForeignKey(
-        Post,
-        on_delete=models.CASCADE,
-        default=None,
-        editable=True,
-    )
+class PostImageModel(models.Model):
+    post = models.ForeignKey(PostModel, editable=True, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=user_directory_path_post_images)
 
     def __str__(self):
-        return self.post
+        return self.post.title
 
     class Meta:
         verbose_name = 'Зображеня'
         verbose_name_plural = 'Зображеня'
 
 
-class Comment(models.Model):
-    post = models.ForeignKey(
-        Post,
-        on_delete=models.CASCADE,
-        default=None,
-        editable=True,
-    )
+class PostCommentModel(models.Model):
+    post = models.ForeignKey(PostModel, editable=True, on_delete=models.CASCADE,)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -58,7 +51,8 @@ class Comment(models.Model):
         editable=True,
     )
     text = models.TextField('Текст', max_length=512)
-    date = models.DateTimeField('Дата публікації', auto_now_add=True)
+    date_create = models.DateTimeField('Дата публікації', auto_now_add=True)
+    date_update = models.DateTimeField('Дата змінення', auto_now=True)
 
     def __str__(self):
         return self.author.username

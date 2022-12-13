@@ -14,11 +14,11 @@ def users_no_filters(request):
 
 class PostsAllAPIView(APIView):
     def get(self, request):
-        posts_unformated = Post.objects.order_by('-date')
+        posts_unformated = PostModel.objects.order_by('-date_update')
         posts = []
 
         for post in posts_unformated:
-            images_unformated = PostImage.objects.filter(post=post)
+            images_unformated = PostImageModel.objects.filter(post=post)
             images = []
             
             for image in images_unformated:
@@ -35,7 +35,8 @@ class PostsAllAPIView(APIView):
                     "title": post.title,
                     "body": post.text,
                     "images": images,
-                    "date": post.date
+                    "date_create": post.date_create,
+                    "date_update": post.date_update
                 }
             )
 
@@ -45,11 +46,11 @@ class PostsAllAPIView(APIView):
 class PostsAPIView(APIView):
     def get(self, request, number):
         number -= 1
-        posts_unformated = Post.objects.order_by('-date')[number * 4:number * 4 + 4]
+        posts_unformated = PostModel.objects.order_by('-date_update')[number * 4:number * 4 + 4]
         posts = []
 
         for post in posts_unformated:
-            images_unformated = PostImage.objects.filter(post=post)
+            images_unformated = PostImageModel.objects.filter(post=post)
             images = []
             
             for image in images_unformated:
@@ -66,7 +67,8 @@ class PostsAPIView(APIView):
                     "title": post.title,
                     "body": post.text,
                     "images": images,
-                    "date": post.date
+                    "date_create": post.date_create,
+                    "date_update": post.date_update
                 }
             )
 
@@ -75,10 +77,10 @@ class PostsAPIView(APIView):
 
 class PostsNumberPagesAPIView(APIView):
     def get(self, request):
-        pages = ceil(len(Post.objects.order_by('-date')) / 4)
+        pages = ceil(len(PostModel.objects.order_by('-date_update')) / 4)
         return Response(
             {
-                "Pages": pages
+                "pages": pages
             }
         )
 
@@ -86,7 +88,7 @@ class PostsNumberPagesAPIView(APIView):
 class PostAPIView(APIView):
     def get(self, request, id):
         post_unformated = get_object_or_404(Post, id=id)
-        images_unformated = PostImage.objects.filter(post=post_unformated)
+        images_unformated = PostImageModel.objects.filter(post=post_unformated)
         images = []
         
         for image in images_unformated:
@@ -103,7 +105,8 @@ class PostAPIView(APIView):
             "title": post_unformated.title,
             "body": post_unformated.text,
             "images": images,
-            "date": post_unformated.date
+            "date_create": post.date_create,
+            "date_update": post.date_update
         }
 
         return Response(post)
@@ -111,8 +114,8 @@ class PostAPIView(APIView):
 
 class CommentAPIView(APIView):
     def get(self, request, id):
-        post = get_object_or_404(Post, id=id)
-        comments_unformated = Comment.objects.filter(post=post)
+        post = get_object_or_404(PostModel, id=id)
+        comments_unformated = PostCommentModel.objects.filter(post=post)
         comments = []
         
         for comment in comments_unformated:
@@ -121,7 +124,8 @@ class CommentAPIView(APIView):
                     "userId": comment.author.id,
                     "id": comment.id,
                     "body": comment.text,
-                    "date": comment.date
+                    "date_create": comment.date_create,
+                    "date_update": comment.date_update
                 }
             )
             

@@ -5,7 +5,7 @@ from .models import *
 class CreatePostForm(ModelForm):
 
     class Meta:
-        model = Post
+        model = PostModel
         fields = ('title',)
         widgets = {
             'title': TextInput(attrs={
@@ -18,7 +18,7 @@ class CreatePostForm(ModelForm):
 class PostForm(ModelForm):
 
     class Meta:
-        model = Post
+        model = PostModel
         fields = ('title', 'text',)
         widgets = {
             'title': TextInput(attrs={
@@ -33,14 +33,14 @@ class PostForm(ModelForm):
 class PostImageForm(ModelForm):
 
     class Meta:
-        model = PostImage
+        model = PostImageModel
         fields = ('image',)
 
 
 class CommentForm(ModelForm):
 
     class Meta:
-        model = Comment
+        model = PostCommentModel
         fields = ('text',)
         widgets = {
             'text': Textarea(attrs={
