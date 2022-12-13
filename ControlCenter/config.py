@@ -1,5 +1,5 @@
 URL = 'https://jsonplaceholder.typicode.com/'
-PATH_NGFORUM = '../'
+PATH = '../'
 DIRS_WIPE = [
     'users/__pycache__',
     'users/migrations',

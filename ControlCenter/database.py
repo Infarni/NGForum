@@ -73,9 +73,9 @@ for photo in photos:
         image_id = 1
     else:
         image_id = image_id.id
-    filename = f'{PATH_NGFORUM}/media/users/{username}/posts/{post_id}/images/{image_id}.png'
+    filename = f'{PATH}/media/users/{username}/posts/{post_id}/images/{image_id}.png'
     try:
-        os.makedirs(f'{PATH_NGFORUM}/media/users/{username}/posts/{post_id}/images')
+        os.makedirs(f'{PATH}/media/users/{username}/posts/{post_id}/images')
     except FileExistsError:
         pass
     with open(filename, 'wb') as file:

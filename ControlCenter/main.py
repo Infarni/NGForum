@@ -19,7 +19,7 @@ def main():
         elif response == 3:
             os.system('python wipe.py')
         elif response == 4:
-            os.system(f'python {config.PATH_NGFORUM}/manage.py shell < database.py')
+            os.system(f'python {config.PATH}/manage.py shell < database.py')
         elif response == 5:
             break
         else:
