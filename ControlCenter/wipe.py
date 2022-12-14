@@ -1,28 +1,29 @@
 import os
 import shutil
-import config
+from config import PATH, SLASH
 
 
-dirs = []
+def wipe(dirs_wipe, files_wipe):
+    dirs = []
 
 
-for files in config.DIRS_WIPE:
-    dirs.append(os.listdir(f'{config.PATH}/{files}'))
+    for files in dirs_wipe:
+        dirs.append(os.listdir(f'{PATH}{SLASH}{files}'))
 
 
-index = 0
-for dir_el in dirs:
-    for file in dir_el:
-        if file != '__init__.py' and file != '__pycache__':
-            os.remove(f'{config.PATH}/{config.DIRS_WIPE[index]}/{file}')
-    
-    index += 1
+    index = 0
+    for dir_el in dirs:
+        for file in dir_el:
+            if file != '__init__.py' and file != '__pycache__':
+                os.remove(f'{PATH}{SLASH}{dirs_wipe[index]}{SLASH}{file}')
+        
+        index += 1
 
 
-for file in config.FILES_WIPE:
-    if os.path.isfile(f'{config.PATH}/{file}'):
-        os.remove(f'{config.PATH}/{file}')
+    for file in files_wipe:
+        if os.path.isfile(f'{PATH}{SLASH}{file}'):
+            os.remove(f'{PATH}{SLASH}{file}')
 
-for file in os.listdir(f'{config.PATH}/media/users/'):
-    if file != 'default_avatar.jpg':
-         shutil.rmtree(f'{config.PATH}/media/users/{file}')
+    for file in os.listdir(f'{PATH}{SLASH}media{SLASH}users{SLASH}'):
+        if file != 'default_avatar.jpg':
+            shutil.rmtree(f'{PATH}{SLASH}media{SLASH}users{SLASH}{file}')

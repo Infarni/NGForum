@@ -73,9 +73,9 @@ for photo in photos:
         image_id = 1
     else:
         image_id = image_id.id
-    filename = f'{PATH}/media/users/{username}/posts/{post_id}/images/{image_id}.png'
+    filename = f'{PATH}{SLASH}media{SLASH}users{SLASH}{username}{SLASH}posts{SLASH}{post_id}{SLASH}images{SLASH}{image_id}.png'
     try:
-        os.makedirs(f'{PATH}/media/users/{username}/posts/{post_id}/images')
+        os.makedirs(f'{PATH}{SLASH}media{SLASH}users{SLASH}{username}{SLASH}posts{SLASH}{post_id}{SLASH}images')
     except FileExistsError:
         pass
     with open(filename, 'wb') as file:
@@ -83,7 +83,7 @@ for photo in photos:
     
     PostImageModel.objects.update_or_create(
         post=PostModel.objects.get(id=photo['albumId']),
-        image=filename[filename.find("NGForum/media/"):]
+        image=filename[filename.find("NGForum{SLASH}media{SLASH}"):]
     )
     
     number_photos += 1

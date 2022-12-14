@@ -1,7 +1,9 @@
 import os
-import config
+from config import PATH, SLASH
 
-manage = f'{config.PATH}/manage.py'
 
-os.system(f'python {manage} makemigrations')
-os.system(f'python {manage} migrate')
+def setup():
+    manage = f'{PATH}{SLASH}manage.py'
+
+    os.system(f'python {manage} makemigrations')
+    os.system(f'python {manage} migrate')

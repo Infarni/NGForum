@@ -1,5 +1,7 @@
 import os
-import config
+from setup import setup
+from wipe import wipe
+from config import SLASH, PATH, DIRS_WIPE, FILES_WIPE
 
 
 def main():
@@ -13,13 +15,13 @@ def main():
         response = int(input('Введіть номер команди: '))
         
         if response == 1:
-            os.system('python ../manage.py runserver')
+            os.system(f'python ..{SLASH}manage.py runserver')
         elif response == 2:
-            os.system('python setup.py')
+            setup()
         elif response == 3:
-            os.system('python wipe.py')
+            wipe(DIRS_WIPE, FILES_WIPE)
         elif response == 4:
-            os.system(f'python {config.PATH}/manage.py shell < database.py')
+            os.system(f'python {PATH}{SLASH}manage.py shell < database.py')
         elif response == 5:
             break
         else:

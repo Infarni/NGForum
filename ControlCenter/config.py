@@ -1,16 +1,24 @@
+import platform
+
+OS = platform.system()
+if OS == 'Windows':
+    SLASH = '\\'
+else:
+    SLASH = '/'
+
 URL = 'https://jsonplaceholder.typicode.com/'
-PATH = '../'
+PATH = f'..{SLASH}'
 DIRS_WIPE = [
-    'users/__pycache__',
-    'users/migrations',
-    'users/migrations/__pycache__',
-    'posts/__pycache__',
-    'posts/migrations',
-    'posts/migrations/__pycache__',
-    'api/__pycache__',
-    'api/migrations',
-    'api/migrations/__pycache__',
-    'NGForum/__pycache__'
+    f'users{SLASH}__pycache__',
+    f'users{SLASH}migrations',
+    f'users{SLASH}migrations{SLASH}__pycache__',
+    f'posts{SLASH}__pycache__',
+    f'posts{SLASH}migrations',
+    f'posts{SLASH}migrations{SLASH}__pycache__',
+    f'api{SLASH}__pycache__',
+    f'api{SLASH}migrations',
+    f'api{SLASH}migrations{SLASH}__pycache__',
+    f'NGForum{SLASH}__pycache__'
 ]
 FILES_WIPE = [
     'db.sqlite3'
