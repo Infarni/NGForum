@@ -1,7 +1,8 @@
 import os
 from setup import setup
 from wipe import wipe
-from config import SLASH, PATH, DIRS_WIPE, FILES_WIPE
+from parser import parsing
+from config import SLASH, PATH, DIRS_WIPE, FILES_WIPE, URL
 
 
 def main():
@@ -10,8 +11,9 @@ def main():
             1. Запустити сервер\n
             2. Налаштувати проект\n
             3. Очистити весь кеш, міграції та базу даних\n
-            4. Наповнити базу даних (можливо займе 10-20 хв)\n
-            5. Вийти\n\n''')
+            4. Спарсити пости та користувачів\n
+            5. Наповнити базу даних (можливо займе 10-20 хв)\n
+            6. Вийти\n\n''')
         response = int(input('Введіть номер команди: '))
         
         if response == 1:
@@ -21,8 +23,10 @@ def main():
         elif response == 3:
             wipe(DIRS_WIPE, FILES_WIPE)
         elif response == 4:
-            os.system(f'python {PATH}{SLASH}manage.py shell < database.py')
+            parsing(URL)
         elif response == 5:
+            os.system(f'python {PATH}{SLASH}manage.py shell < database.py')
+        elif response == 6:
             break
         else:
             print('Ви ввели невірний номер, повторіть спробу')

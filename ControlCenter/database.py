@@ -1,89 +1,66 @@
-import requests
 import json
+import requests
 from users.models import CustomUser
 from posts.models import *
 
 
 exec(open('config.py').read())
 
-users = json.loads(requests.get(f'{URL}users').text)
-posts = json.loads(requests.get(f'{URL}posts').text)
-photos = json.loads(requests.get(f'{URL}photos').text)
-comments = json.loads(requests.get(f'{URL}comments').text)
+with open('data.json', 'r', encoding='utf-8') as file:
+    users = json.load(file)
 
+users_number = 1
+posts_number = 1
 
-number_users = 1
 for user in users:
-    print(f'Users download: {number_users}')
+    print(f'\n\nUser downloads: {users_number}\n\n')
+
+    username = user['username']
+    
     CustomUser.objects.update_or_create(
-        id=user['id'],
-        username=user['username'],
-        email=user['email'],
+        username=username,
+        email=f'{username}@example.org',
         password='qwerasdf1234'
     )
+    users_number += 1
     
-    number_users += 1
+    for post in user['posts']:
+        print(f'Post downloads: {posts_number}')
 
-number_posts = 1
-for post in posts:
-    print(f'Post download: {number_posts}')
-    PostModel.objects.update_or_create(
-        author=CustomUser.objects.get(id=post['userId']),
-        id=post['id'],
-        title=post['title'],
-        text=post['body'],
-        published=True
-    )
-    
-    number_posts += 1
-
-
-number_comments = 1
-for comment in comments:
-    username = comment['email'][:comment['email'].find("@")]
-    try:
-        print(f'Users download: {number_users}')
-        print(f'Comments download: {number_comments}')
-        CustomUser.objects.update_or_create(
-            username=username,
-            email=comment['email'],
-            password='qwerasdf1234'
+        PostModel.objects.update_or_create(
+            author=CustomUser.objects.get(username=user['username']),
+            title=post['title'],
+            text=post['text'],
+            published=True
         )
-        PostCommentModel.objects.update_or_create(
-            post=PostModel.objects.get(id=comment['postId']),
-            author=CustomUser.objects.get(email=comment['email']),
-            id=comment['id'],
-            text=comment['body']
-        )
+
+        if post['image'] is not None:
+            post_id = PostModel.objects.last()
+            if post_id == None:
+                post_id = 1
+            else:
+                post_id = post_id.id
+            username = user['username']
+            image_url = post['image']
+            if image_url[:6] != 'https:':
+                image_url = 'https:' + image_url
+            image = requests.get(image_url).content
+            image_id = PostImageModel.objects.last()
+            if image_id == None:
+                image_id = 1
+            else:
+                image_id = image_id.id
+            filename = f'{PATH}{SLASH}media{SLASH}users{SLASH}{username}{SLASH}posts{SLASH}{post_id}{SLASH}images{SLASH}{image_id}.png'
+            try:
+                os.makedirs(f'{PATH}{SLASH}media{SLASH}users{SLASH}{username}{SLASH}posts{SLASH}{post_id}{SLASH}images')
+            except FileExistsError:
+                pass
+            with open(filename, 'wb') as file:
+                file.write(image)
+            
+            PostImageModel.objects.update_or_create(
+                post=PostModel.objects.get(id=post_id),
+                image=filename[filename.find("NGForum{SLASH}media{SLASH}"):]
+            )
         
-        number_users += 1
-        number_comments += 1
-    except:
-        pass
-
-
-number_photos = 1
-for photo in photos:
-    print(f'Photos download: {number_photos}')
-    post_id = PostModel.objects.get(id=photo['albumId']).id
-    username = PostModel.objects.get(id=photo['albumId']).author.username
-    image = requests.get(photo['url'] + '.jpg').content
-    image_id = PostImageModel.objects.last()
-    if image_id == None:
-        image_id = 1
-    else:
-        image_id = image_id.id
-    filename = f'{PATH}{SLASH}media{SLASH}users{SLASH}{username}{SLASH}posts{SLASH}{post_id}{SLASH}images{SLASH}{image_id}.png'
-    try:
-        os.makedirs(f'{PATH}{SLASH}media{SLASH}users{SLASH}{username}{SLASH}posts{SLASH}{post_id}{SLASH}images')
-    except FileExistsError:
-        pass
-    with open(filename, 'wb') as file:
-        file.write(image)
-    
-    PostImageModel.objects.update_or_create(
-        post=PostModel.objects.get(id=photo['albumId']),
-        image=filename[filename.find("NGForum{SLASH}media{SLASH}"):]
-    )
-    
-    number_photos += 1
+        posts_number += 1

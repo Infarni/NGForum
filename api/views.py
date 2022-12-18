@@ -46,7 +46,7 @@ class PostsAllAPIView(APIView):
 class PostsAPIView(APIView):
     def get(self, request, number):
         number -= 1
-        posts_unformated = PostModel.objects.order_by('-date_update')[number * 4:number * 4 + 4]
+        posts_unformated = PostModel.objects.order_by('-date_update')[number * 15:number * 15 + 15]
         posts = []
 
         for post in posts_unformated:
@@ -77,7 +77,7 @@ class PostsAPIView(APIView):
 
 class PostsNumberPagesAPIView(APIView):
     def get(self, request):
-        pages = ceil(len(PostModel.objects.order_by('-date_update')) / 4)
+        pages = ceil(len(PostModel.objects.order_by('-date_update')) / 15)
         return Response(
             {
                 "pages": pages
@@ -135,10 +135,10 @@ class CommentAPIView(APIView):
 class UsersAPIView(APIView):
     def get(self, request, number):
         if number == 1:
-            end = 4 * number
+            end = 15 * number
         else:
-            end = 4 * number - 1
-        start = end - 4
+            end = 15 * number - 15
+        start = end - 15
         users_unformated = CustomUser.objects.all()[start:end]
         users = []
 

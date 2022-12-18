@@ -6,7 +6,7 @@ if OS == 'Windows':
 else:
     SLASH = '/'
 
-URL = 'https://jsonplaceholder.typicode.com/'
+URL = 'https://habr.com/ru/'
 PATH = f'..{SLASH}'
 DIRS_WIPE = [
     f'users{SLASH}__pycache__',
