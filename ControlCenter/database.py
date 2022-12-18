@@ -17,7 +17,7 @@ for user in users:
 
     username = user['username']
     
-    CustomUser.objects.update_or_create(
+    CustomUser.objects.create(
         username=username,
         email=f'{username}@example.org',
         password='qwerasdf1234'
@@ -27,7 +27,7 @@ for user in users:
     for post in user['posts']:
         print(f'Post downloads: {posts_number}')
 
-        PostModel.objects.update_or_create(
+        PostModel.objects.create(
             author=CustomUser.objects.get(username=user['username']),
             title=post['title'],
             text=post['text'],
@@ -58,9 +58,9 @@ for user in users:
             with open(filename, 'wb') as file:
                 file.write(image)
             
-            PostImageModel.objects.update_or_create(
+            PostImageModel.objects.create(
                 post=PostModel.objects.get(id=post_id),
-                image=filename[filename.find("NGForum{SLASH}media{SLASH}"):]
+                image=f'users{SLASH}{username}{SLASH}posts{SLASH}{post_id}{SLASH}images{SLASH}{image_id}.png'
             )
         
         posts_number += 1
