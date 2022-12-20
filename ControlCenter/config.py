@@ -1,5 +1,8 @@
+import os
+
+
 URL = 'https://habr.com/ru/'
-PATH = f'../'
+PATH = os.getcwd()
 DIRS_WIPE = [
     f'users/__pycache__',
     f'users/migrations',
@@ -13,5 +16,6 @@ DIRS_WIPE = [
     f'NGForum/__pycache__'
 ]
 FILES_WIPE = [
-    'db.sqlite3'
+    'db.sqlite3',
+    'ControlCenter/data.json'
 ]

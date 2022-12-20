@@ -1,3 +1,4 @@
+import os
 import json
 from requests_html import HTMLSession
 
@@ -51,5 +52,5 @@ def parsing(url: str):
             )
 
 
-    with open('data.json', 'w', encoding='utf-8') as file:
+    with open(os.path.normpath(f'ControlCenter/data.json'), 'w', encoding='utf-8') as file:
         json.dump(users, file, indent=2, ensure_ascii=False)
