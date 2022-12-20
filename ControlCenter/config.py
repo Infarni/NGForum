@@ -1,24 +1,16 @@
-import platform
-
-OS = platform.system()
-if OS == 'Windows':
-    SLASH = '\\'
-else:
-    SLASH = '/'
-
 URL = 'https://habr.com/ru/'
-PATH = f'..{SLASH}'
+PATH = f'../'
 DIRS_WIPE = [
-    f'users{SLASH}__pycache__',
-    f'users{SLASH}migrations',
-    f'users{SLASH}migrations{SLASH}__pycache__',
-    f'posts{SLASH}__pycache__',
-    f'posts{SLASH}migrations',
-    f'posts{SLASH}migrations{SLASH}__pycache__',
-    f'api{SLASH}__pycache__',
-    f'api{SLASH}migrations',
-    f'api{SLASH}migrations{SLASH}__pycache__',
-    f'NGForum{SLASH}__pycache__'
+    f'users/__pycache__',
+    f'users/migrations',
+    f'users/migrations/__pycache__',
+    f'posts/__pycache__',
+    f'posts/migrations',
+    f'posts/migrations/__pycache__',
+    f'api/__pycache__',
+    f'api/migrations',
+    f'api/migrations/__pycache__',
+    f'NGForum/__pycache__'
 ]
 FILES_WIPE = [
     'db.sqlite3'

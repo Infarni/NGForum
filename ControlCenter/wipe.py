@@ -1,6 +1,6 @@
 import os
 import shutil
-from config import PATH, SLASH
+from config import PATH
 
 
 def wipe(dirs_wipe, files_wipe):
@@ -8,22 +8,22 @@ def wipe(dirs_wipe, files_wipe):
 
 
     for files in dirs_wipe:
-        dirs.append(os.listdir(f'{PATH}{SLASH}{files}'))
+        dirs.append(os.listdir(os.path.normpath(f'{PATH}/{files}')))
 
 
     index = 0
     for dir_el in dirs:
         for file in dir_el:
             if file != '__init__.py' and file != '__pycache__':
-                os.remove(f'{PATH}{SLASH}{dirs_wipe[index]}{SLASH}{file}')
+                os.remove(os.path.normpath(f'{PATH}/{dirs_wipe[index]}/{file}'))
         
         index += 1
 
 
     for file in files_wipe:
-        if os.path.isfile(f'{PATH}{SLASH}{file}'):
-            os.remove(f'{PATH}{SLASH}{file}')
+        if os.path.isfile(os.path.normpath(f'{PATH}/{file}')):
+            os.remove(os.path.normpath(f'{PATH}/{file}'))
 
-    for file in os.listdir(f'{PATH}{SLASH}media{SLASH}users{SLASH}'):
+    for file in os.listdir(os.path.normpath(f'{PATH}/media/users/')):
         if file != 'default_avatar.jpg':
-            shutil.rmtree(f'{PATH}{SLASH}media{SLASH}users{SLASH}{file}')
+            shutil.rmtree(os.path.normpath(f'{PATH}/media/users/{file}'))

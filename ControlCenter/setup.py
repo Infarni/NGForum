@@ -1,9 +1,9 @@
 import os
-from config import PATH, SLASH
+from config import PATH
 
 
 def setup():
-    manage = f'{PATH}{SLASH}manage.py'
+    manage = os.path.normpath(f'{PATH}/manage.py')
 
     os.system(f'python {manage} makemigrations')
     os.system(f'python {manage} migrate')

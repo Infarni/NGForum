@@ -1,3 +1,4 @@
+import os
 import json
 import requests
 from users.models import CustomUser
@@ -50,9 +51,9 @@ for user in users:
                 image_id = 1
             else:
                 image_id = image_id.id
-            filename = f'{PATH}{SLASH}media{SLASH}users{SLASH}{username}{SLASH}posts{SLASH}{post_id}{SLASH}images{SLASH}{image_id}.png'
+            filename = os.path.normpath(f'{PATH}/media/users/{username}/posts/{post_id}/images/{image_id}.png')
             try:
-                os.makedirs(f'{PATH}{SLASH}media{SLASH}users{SLASH}{username}{SLASH}posts{SLASH}{post_id}{SLASH}images')
+                os.makedirs(os.path.normpath(f'{PATH}/media/users/{username}/posts/{post_id}/images'))
             except FileExistsError:
                 pass
             with open(filename, 'wb') as file:
@@ -60,7 +61,7 @@ for user in users:
             
             PostImageModel.objects.create(
                 post=PostModel.objects.get(id=post_id),
-                image=f'users{SLASH}{username}{SLASH}posts{SLASH}{post_id}{SLASH}images{SLASH}{image_id}.png'
+                image=os.path.normpath(f'users/{username}/posts/{post_id}/images/{image_id}.png')
             )
         
         posts_number += 1
