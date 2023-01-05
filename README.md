@@ -1,6 +1,6 @@
 About
 ---
-Ready minimalist forum
+Ready-made minimalist forum on Django
 
 ___
 Installation
