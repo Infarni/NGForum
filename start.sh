@@ -1,2 +1,2 @@
 #!/bin/sh
-python manage.py shell --command="import ControlCenter.main"
+python manage.py shell --command="import handlers.main"
