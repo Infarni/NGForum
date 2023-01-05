@@ -17,11 +17,27 @@ def filling():
 
         username = user['username']
         
-        CustomUser.objects.create(
-            username=username,
-            email=f'{username}@example.org',
-            password='qwerasdf1234'
-        )
+        if user['avatar'] != None:
+            avatar = requests.get(user['avatar']).content
+            path = os.path.normpath(f'media/users/{username}/')
+            if not os.path.exists(path):
+                os.mkdir(path)
+            with open(os.path.join(path, 'avatar.jpg'), 'wb') as file:
+                file.write(avatar)
+            
+            CustomUser.objects.create(
+                username=username,
+                email=f'{username}@example.org',
+                avatar=f'users/{username}/avatar.jpg',
+                password='qwerasdf1234'
+            )
+        else:
+            CustomUser.objects.create(
+                username=username,
+                email=f'{username}@example.org',
+                password='qwerasdf1234'
+            )
+        
         users_number += 1
         
         for post in user['posts']:
