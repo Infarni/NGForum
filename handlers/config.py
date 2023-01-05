@@ -17,5 +17,4 @@ DIRS_WIPE = [
 ]
 FILES_WIPE = [
     'db.sqlite3',
-    'data.json'
 ]
