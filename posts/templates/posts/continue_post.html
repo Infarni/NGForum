@@ -2,11 +2,10 @@
 {% block title %}Continue post{% endblock title %}
 
 {% block content %}
-	<form method="post">
+	<form method="post" class="post post__view">
 		{% csrf_token %}
 		{{ form.as_p }}
-		<button type="submit">Create</button>
+		<a class="button" href="{% url "post_image" pk_post %}">Upload image</a>
+		<button class="button" type="submit">Create</button>
 	</form>
-	{{ user.username }}
-	{{ post.author.username }}
 {% endblock content %}

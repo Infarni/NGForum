@@ -1,20 +1,24 @@
-{% extends "users/template.html" %}
+{% extends "posts/template.html" %}
 {% block title %}Profile{% endblock title %}
 
 {% block content %}
 	{% if user.is_authenticated %}
-		hello {{ user.get_username }}
+	<div class="post">
+		hello {{ user.username }}
 		<img src="{{ user.avatar.url }}">
 		<br>
 		<br>
-		<form method="post" enctype="multipart/form-data">
+		<form method="post" enctype="multipart/form-data" class="post">
 			{% csrf_token %}
 			<b>Avatar: </b>{{ form.avatar }}
-			<button type="submit">Upload</button>
+			<button class="button" type="submit">Upload</button>
 		</form>
-		<a href="{% url "signout" %}">SignOut</a>
+		<a class="button" href="{% url "signout" %}">SignOut</a>
+	</div>
 	{% else %}
-		<a href="{% url 'signup' %}">SignUp</a>
-		<a href="{% url 'signin' %}">SignIn</a>
+	<div class="post">
+		<a class="button" href="{% url 'signup' %}">SignUp</a>
+		<a class="button" href="{% url 'signin' %}">SignIn</a>
+	</div>
 	{% endif %}
 {% endblock content %}

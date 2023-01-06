@@ -3,13 +3,15 @@
 
 {% block content %}
 	{% for el in posts%}
-		<div><img class="avatar" src="{{ el.post.author.avatar.url }}"><span>{{ el.post.author.username }}</span></div>
-		<div><a href="{% url "post_view" el.post.pk %}">{{ el.post.title }}</a></div>
+	<div class="post">
+		<div class="user"><img class="avatar" src="{{ el.post.author.avatar.url }}"><span class="username">{{ el.post.author.username }}</span></div>
+		<div class="post post__title"><a class="post__title" href="{% url "post_view" el.post.pk %}">{{ el.post.title }}</a></div>
 		<div class="images">
 			{% for img in el.images %}
 				<img class="img" src="{{ img.image.url }}">
 			{% endfor %}
 		</div>
 		<div class="text">{{ el.post.text }}</div>
+	</div>
 	{% endfor %}
 {% endblock content %}

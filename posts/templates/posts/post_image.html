@@ -2,13 +2,14 @@
 {% block title %}Images{% endblock title %}
 
 {% block content %}
-	<form method="post" enctype="multipart/form-data">
+	<form method="post" enctype="multipart/form-data" class="post post__view form__image">
 		{% csrf_token %}
 		{{ form.as_p }}
-		<button type="submit">Upload</button>
+		<button class="button" type="submit">Upload</button>
+		<a class="button" href="{% url "continue_post" pk_post %}">Back</a>
 	</form>
 
 	{% for img in images %}
-		<img src="{{ img.image.url }}">
+		<div><img src="{{ img.image.url }}"></div>
 	{% endfor %}
 {% endblock content %}

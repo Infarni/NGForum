@@ -8,13 +8,17 @@
 	<title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
-	<div>
-		<a href="{% url "profile" %}">Profile</a>
-		<a href="{% url "home" %}">Home</a>
-	</div>
-
-	{% block content %}
-		
-	{% endblock content %}
+	<header>
+		<a class="header__link" href="{% url "profile" %}">Profile</a>
+		<a class="header__link" href="{% url "home" %}">Home</a>
+		<a class="header__link" href="{% url "create_post" %}">Create</a>
+	</header>
+	<main>
+		{% block content %}
+		{% endblock content %}
+	</main>
+	<footer>
+		Представте що тут важлива інфа
+	</footer>
 </body>
 </html>

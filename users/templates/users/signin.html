@@ -1,10 +1,10 @@
-{% extends "users/template.html" %}
+{% extends "posts/template.html" %}
 {% block title %}SighIn{% endblock title %}
 
 {% block content %}
-	<form method="post">
+	<form method="post" class="post">
 		{% csrf_token %}
 		{{ form.as_p }}
-		<button type="submit">SighIn</button>
+		<button class="button" type="submit">SighIn</button>
 	</form>
 {% endblock content %}

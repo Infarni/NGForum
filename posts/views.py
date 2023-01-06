@@ -13,16 +13,16 @@ class Posts():
 
 
 def home(request):
-    un_formated_posts = Post.objects.order_by('-date')
+    un_formated_posts = Post.objects.order_by('-date')[:100]
     posts = []
 
     for el in un_formated_posts:
         try:
-            comments = Comment.objects.filter(post=el.pk)
+            comments = Comment.objects.filter(post=el)
         except Comment.DoesNotExist:
             comments = None
         try:
-            images = PostImage.objects.filter(post=el.pk)
+            images = PostImage.objects.filter(post=el)
         except PostImage.DoesNotExist:
             images = None
 
@@ -36,23 +36,25 @@ def home(request):
 
 
 def create_post(request):
-    data = {}
-    if request.method == 'POST':
-        form = CreatePostForm(request.POST)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            instance.author = request.user
-            instance.save()
-            form = PostForm(instance=Post.objects.get(pk=instance.pk))
-            return redirect('continue_post', instance.pk)
+    if request.user.is_authenticated:
+        data = {}
+        if request.method == 'POST':
+            form = CreatePostForm(request.POST)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.author = request.user
+                instance.save()
+                form = PostForm(instance=Post.objects.get(pk=instance.pk))
+                return redirect('continue_post', instance.pk)
+            else:
+                for msg in form.error_messages:
+                    print(form.error_messages[msg])
         else:
-            for msg in form.error_messages:
-                print(form.error_messages[msg])
-    else:
-        form = CreatePostForm()
-        data['form'] = form
-        print(data)
-        return render(request, 'posts/create.html', data)
+            form = CreatePostForm()
+            data['form'] = form
+            print(data)
+            return render(request, 'posts/create.html', data)
+    return redirect('home')
 
 
 def continue_post(request, pk):
@@ -72,6 +74,7 @@ def continue_post(request, pk):
     form = PostForm(instance=Post.objects.get(pk=pk))
     data['form'] = form
     data['post'] = post
+    data['pk_post'] = pk
     return render(request, 'posts/continue_post.html', data)
 
 
@@ -89,12 +92,14 @@ def post_image(request, pk):
             images = PostImage.objects.filter(post=post)
             data['form'] = PostImageForm()
             data['images'] = images
+            data['pk_post'] = pk
             return render(request, 'posts/post_image.html', data)
 
     form = PostImageForm()
     images = PostImage.objects.filter(post=post)
     data['form'] = form
     data['images'] = images
+    data['pk_post'] = pk
     return render(request, 'posts/post_image.html', data)
 
 
