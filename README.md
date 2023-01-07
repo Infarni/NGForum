@@ -12,7 +12,7 @@ ___
 Configure
 ---
 1. Run <code>python manage.py makemigrations && python manage.py migrate</code>
-2. If you need to fill the database, then execute the following command <code>python manage.py --command="from handlers import database; database.filling()"</code>
+2. If you need to fill the database, then execute the following command <code>python manage.py shell --command="from handlers import database; database.filling()"</code>
 
 
 ___
